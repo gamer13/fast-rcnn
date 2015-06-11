@@ -158,6 +158,7 @@ class ms_coco(datasets.imdb):
 
         box_dict = {}
         for img, box_tmp in zip(images, boxes):
+            box_tmp = np.array(box_tmp)[0,:,:]
             box_dict[img] = box_tmp[:, (1, 0, 3, 2)] - 1
 
         box_list = []
@@ -191,7 +192,7 @@ class ms_coco(datasets.imdb):
                 for row_number in range(len(column)):
                     box_tmp = reader[column[row_number]][:]
                     row_data.append(np.transpose(box_tmp))
-                boxes = row_data
+                boxes.append(row_data)
 
         return images, boxes
 
